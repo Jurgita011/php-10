@@ -1,6 +1,6 @@
-?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+<?php
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
 
 
 $hello = 'Labas';
@@ -202,3 +202,4 @@ $bebras = $addMinus();
 
 echo '<h2>' . $bebras . '</h2>';
 
+?>
