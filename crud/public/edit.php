@@ -1,9 +1,10 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$colors = file_get_contents(__DIR__ . '/../colors.ser');
+$colors = $colors ? unserialize($colors) : [];
+$id = (int) $_GET['id'];
 
-    $colors = file_get_contents(__DIR__ . '/../colors.ser');
-    $colors = $colors ? unserialize($colors) : [];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'https://www.thecolorapi.com/id?hex=' . str_replace('#', '', $_POST['color']));
@@ -13,16 +14,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $output['name']['value'];
     curl_close($ch);
 
-        $colors[] = [
-            'color' => $_POST['color'],
-            'name' => $name,
-            'id' => rand(100000000, 999999999)
-        ];
+    $colors = array_map(function ($c) use ($id, $name) {
+        if ($c['id'] == $id) {
+            $c['color'] = $_POST['color'];
+            $c['name'] = $name;
+        }
+        return $c;
+    }, $colors);
+
     $colors = serialize($colors);
     file_put_contents(__DIR__ . '/../colors.ser', $colors);
     header('Location: ./');
     die;
 }
+
+$color = array_filter($colors, fn ($c) => $id == $c['id']);
+$color = array_shift($color);
 
 ?>
 
@@ -35,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="app.css">
     <script src="app.js"></script>
-    <title>Add</title>
+    <title>Edit</title>
 </head>
 
 <body>
@@ -46,12 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-6">
                 <div class="card m-5">
                     <div class="card-header">
-                        <h2>Add new color</h2>
+                        <h2>Edit color</h2>
                     </div>
                     <div class="card-body">
-                        <form action="./add.php" method="post">
+                        <form action="./edit.php?id=<?= $color['id'] ?>" method="post">
                             <label class="form-label">Color picker</label>
-                            <input type="color" class="form-control form-control-color" name="color" title="Choose your color">
+                            <input type="color" class="form-control form-control-color" name="color" value="<?= $color['color']  ?>" title="Choose your color">
                             <button type="submit" class="btn btn-outline-warning mt-4">Save</button>
                         </form>
                     </div>
