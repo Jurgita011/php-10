@@ -1,5 +1,4 @@
 <?php 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $colors = file_get_contents(__DIR__ . '/../colors.ser');

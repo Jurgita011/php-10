@@ -22,6 +22,7 @@
         border: none;
         outline: none;
         cursor: pointer;
+
         position: absolute;
         height: 32px;
         width: 32px;
@@ -79,4 +80,11 @@
         }
     }
 
+}
+.navbar-brand {
+    img {
+        width: 200px;
+        height: auto;
+    }
+    
 }
