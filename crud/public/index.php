@@ -1,4 +1,5 @@
 <?php
+//pamoka 21
     $colors = file_get_contents(__DIR__ . '/../colors.ser');
     $colors = $colors ? unserialize($colors) : [];
 
