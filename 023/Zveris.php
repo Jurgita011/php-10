@@ -1,6 +1,6 @@
 <?php
 
-class Zveris {
+class Zveris extends Miskas{
 
     // $name, $age - kintamuju savybes
     public $name, $age;
@@ -14,12 +14,9 @@ class Zveris {
 
     public function run() : void
     {
-        echo '<h1>' . $this->name . ' Bėga bėga</h1>';
+        echo '<h1>' . $this->name . ' Bėga bėga'.$this->color.'</h1>';
     }
 
-    public function getArea() : string
-    {
-        return 'Miško dydis yra: ' . rand(10, 99);
-    }
+   
     
 }
