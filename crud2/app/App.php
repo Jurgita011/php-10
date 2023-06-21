@@ -7,7 +7,7 @@ class App {
 
     static public function start() 
     {
-        echo '<h1>App</h1>';
+        //echo '<h1>App</h1>';
 
         $url = explode('/', $_SERVER['REQUEST_URI']);
         array_shift($url);
