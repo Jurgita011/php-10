@@ -10,4 +10,5 @@ return array(
     'Ramsey\\Collection\\' => array($vendorDir . '/ramsey/collection/src'),
     'Colors\\' => array($baseDir . '/app'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
+    'App\\DB\\' => array($baseDir . '/app'),
 );
