@@ -13,7 +13,7 @@
         color: #721c24;
     }
 </style>
-<?php use Colors\Messages ?>
+<?php use Colors\Messages; ?>
 
 <?php if (Messages::ifMessages()) : ?>
     <?php foreach (Messages::getMessages() as $message) : ?>
