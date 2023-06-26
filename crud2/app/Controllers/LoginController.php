@@ -3,19 +3,28 @@ namespace Colors\Controllers;
 
 use Colors\App;
 use Colors\FileWriter;
+use Colors\Messages;
+use Colors\OldData;
 
 class LoginController
 {
 
     public function index()
     {
-        return App::view('auth\index');
+        $old = OldData::getFlashData();
+        
+        return App::view('auth\index', [
+            'pageTitle' => 'Login',
+            'inLogin' => true,
+            'old' => $old,
+        ]);
     }
 
     public function login(array $data)
     {
         $email = $data['email'] ?? '';
         $password = $data['password'] ?? '';
+        
 
         $users = (new FileWriter('users'))->showAll();
 
@@ -23,12 +32,14 @@ class LoginController
             if ($user['email'] == $email && $user['password'] == md5($password)) {
                 $_SESSION['email'] = $email;
                 $_SESSION['name'] = $user['name'];
-                // message('success', 'You are logged in');
+                Messages::addMessage('success', 'You are logged in');
                 header('Location: /');
                 die;
             }
         }
-        // message('danger', 'Wrong email or password');
+
+        Messages::addMessage('danger', 'Wrong email or password');
+        OldData::flashData($data);
         header('Location: /login');
         die;
     }
@@ -37,6 +48,7 @@ class LoginController
     {
         unset($_SESSION['email']);
         unset($_SESSION['name']);
+        Messages::addMessage('success', 'You are logged out');
         header('Location: /');
         exit;
     }
