@@ -1,4 +1,6 @@
 @import 'bootstrap/scss/bootstrap';
+
+
 .bin {
     position: relative;
 
@@ -78,5 +80,9 @@
             }
         }
     }
+}
 
+.modal {
+    display: block;
+    background-color: #163db32f
 }
