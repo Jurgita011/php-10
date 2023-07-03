@@ -6,10 +6,11 @@ use Colors\Controllers\HomeController;
 use Colors\Controllers\LoginController;
 use Colors\Controllers\ColorController;
 use Colors\FileWriter;
+use Colors\DatabaseWriter;
 
 class App {
 
-    const DB = 'file';
+    const DB = 'database';
 
     static public function start() 
     {
